@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.Objects;
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout textInputEmail;
@@ -25,6 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Portal Log In");
 
         textInputEmail = findViewById(R.id.textInputEmail);
         textInputPassword = findViewById(R.id.textInputPassword);
