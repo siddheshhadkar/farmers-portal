@@ -62,8 +62,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        String emailPassword = textInputPassword.getEditText().getText().toString().trim();
-        if (emailPassword.isEmpty()) {
+        String passwordInput = textInputPassword.getEditText().getText().toString().trim();
+        if (passwordInput.isEmpty()) {
             textInputPassword.setErrorEnabled(true);
             textInputPassword.setError("Please enter a password");
             return false;
