@@ -32,7 +32,11 @@ public abstract class MainDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-
+            dbWriteExecutor.execute(() -> {
+                UserDao userDao = INSTANCE.userDao();
+                userDao.insert(new User("A", "A@g.com", "1111111111", "pass", "loc"));
+                userDao.insert(new User("B", "B@g.com", "2222222222", "pass", "loc"));
+            });
         }
 
         @Override

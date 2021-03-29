@@ -31,4 +31,12 @@ public class UserViewModel extends AndroidViewModel {
     public void deleteAll() {
         repository.deleteAll();
     }
+
+    public void valuesExist(String enteredEmail, String enteredPhone) {
+        repository.valuesExist(enteredEmail, enteredPhone);
+    }
+
+    public UserRepository getRepository() {
+        return repository;
+    }
 }

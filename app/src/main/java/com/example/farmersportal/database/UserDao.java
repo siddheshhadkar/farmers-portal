@@ -20,4 +20,10 @@ public interface UserDao {
 
     @Query("DELETE FROM User")
     void deleteAll();
+
+    @Query("SELECT EXISTS (SELECT * FROM User WHERE email=:enteredEmail)")
+    boolean emailExists(String enteredEmail);
+
+    @Query("SELECT EXISTS (SELECT * FROM User WHERE phoneNumber=:enteredPhone)")
+    boolean phoneExists(String enteredPhone);
 }

@@ -24,7 +24,6 @@ public class SignupActivity extends AppCompatActivity {
     private TextInputLayout textInputPhone;
     private TextInputLayout textInputPassword;
     private RadioGroup radioGroup;
-    private Button buttonSignUp;
 
     private UserViewModel userViewModel;
 
@@ -42,13 +41,41 @@ public class SignupActivity extends AppCompatActivity {
 
         MainFactory factory = new MainFactory(getApplication());
         userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
+        userViewModel.getRepository().setCheckListener((emailExists, phoneExists) -> {
+            if (emailExists && phoneExists) {
+                runOnUiThread(() -> {
+                    Toast.makeText(SignupActivity.this, "Email Id and Phone Number are already associated with another account", Toast.LENGTH_SHORT).show();
+                    textInputEmail.setErrorEnabled(true);
+                    textInputEmail.setError("Email Id is associated with another account");
+                    textInputPhone.setErrorEnabled(true);
+                    textInputPhone.setError("Phone number is associated with another account");
+                    textInputEmail.requestFocus();
+                });
+            } else if (emailExists) {
+                runOnUiThread(() -> {
+                    Toast.makeText(SignupActivity.this, "This Email Id is already associated with another account", Toast.LENGTH_SHORT).show();
+                    textInputEmail.setErrorEnabled(true);
+                    textInputEmail.setError("Email Id is associated with another account");
+                    textInputEmail.requestFocus();
+                });
+            } else if (phoneExists) {
+                runOnUiThread(() -> {
+                    Toast.makeText(SignupActivity.this, "This Phone Number is already associated with another account", Toast.LENGTH_SHORT).show();
+                    textInputPhone.setErrorEnabled(true);
+                    textInputPhone.setError("Phone number is associated with another account");
+                    textInputPhone.requestFocus();
+                });
+            } else {
+                runOnUiThread(() -> Toast.makeText(SignupActivity.this, "Accepted", Toast.LENGTH_SHORT).show());
+            }
+        });
 
-        buttonSignUp = findViewById(R.id.buttonSignUp);
+        Button buttonSignUp = findViewById(R.id.buttonSignUp);
         buttonSignUp.setOnClickListener(v -> {
             if (!validateName() | !validateEmail() | !validatePhone() | !validatePassword()) {
                 return;
             }
-            Toast.makeText(this, "Otherwise", Toast.LENGTH_SHORT).show();
+            userViewModel.valuesExist(textInputEmail.getEditText().getText().toString().trim(), textInputPhone.getEditText().getText().toString().trim());
         });
 
         TextView textViewLogIn = findViewById(R.id.textViewLogIn);
