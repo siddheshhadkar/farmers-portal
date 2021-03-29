@@ -3,14 +3,20 @@ package com.example.farmersportal;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.farmersportal.database.User;
 import com.example.farmersportal.viewmodel.MainFactory;
 import com.example.farmersportal.viewmodel.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
@@ -23,9 +29,12 @@ public class SignupActivity extends AppCompatActivity {
     private TextInputLayout textInputName;
     private TextInputLayout textInputPhone;
     private TextInputLayout textInputPassword;
+    private Spinner spinnerLocation;
     private RadioGroup radioGroup;
 
     private UserViewModel userViewModel;
+
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +46,31 @@ public class SignupActivity extends AppCompatActivity {
         textInputName = findViewById(R.id.textInputName);
         textInputPhone = findViewById(R.id.textInputPhoneNumber);
         textInputPassword = findViewById(R.id.textInputPassword);
+        spinnerLocation = findViewById(R.id.spinnerLocation);
         radioGroup = findViewById(R.id.radioGroup);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.location_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLocation.setAdapter(adapter);
+        location = adapter.getItem(0).toString();
+        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                location = (String) spinnerLocation.getItemAtPosition(i);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         MainFactory factory = new MainFactory(getApplication());
         userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
+
         userViewModel.getRepository().setCheckListener((emailExists, phoneExists) -> {
             if (emailExists && phoneExists) {
                 runOnUiThread(() -> {
-                    Toast.makeText(SignupActivity.this, "Email Id and Phone Number are already associated with another account", Toast.LENGTH_SHORT).show();
                     textInputEmail.setErrorEnabled(true);
                     textInputEmail.setError("Email Id is associated with another account");
                     textInputPhone.setErrorEnabled(true);
@@ -53,20 +79,31 @@ public class SignupActivity extends AppCompatActivity {
                 });
             } else if (emailExists) {
                 runOnUiThread(() -> {
-                    Toast.makeText(SignupActivity.this, "This Email Id is already associated with another account", Toast.LENGTH_SHORT).show();
                     textInputEmail.setErrorEnabled(true);
                     textInputEmail.setError("Email Id is associated with another account");
                     textInputEmail.requestFocus();
                 });
             } else if (phoneExists) {
                 runOnUiThread(() -> {
-                    Toast.makeText(SignupActivity.this, "This Phone Number is already associated with another account", Toast.LENGTH_SHORT).show();
                     textInputPhone.setErrorEnabled(true);
                     textInputPhone.setError("Phone number is associated with another account");
                     textInputPhone.requestFocus();
                 });
             } else {
-                runOnUiThread(() -> Toast.makeText(SignupActivity.this, "Accepted", Toast.LENGTH_SHORT).show());
+                String name = textInputName.getEditText().getText().toString().trim();
+                String email = textInputEmail.getEditText().getText().toString().trim();
+                String phone = textInputPhone.getEditText().getText().toString().trim();
+                String password = textInputPassword.getEditText().getText().toString().trim();
+                int userType;
+
+                RadioButton radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                if (radioButton.getText().equals("Buyer"))
+                    userType = 0;
+                else
+                    userType = 1;
+
+                User user = new User(name, email, phone, password, location, userType);
+                userViewModel.insert(user);
             }
         });
 

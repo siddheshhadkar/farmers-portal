@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Farmers Portal</string>
+    <string-array name="location_array">
+        <item>Mumbai</item>
+        <item>Delhi</item>
+        <item>Kolkata</item>
+        <item>Goa</item>
+        <item>Bangalore</item>
+        <item>Hyderabad</item>
+        <item>Chandigarh</item>
+        <item>Nagpur</item>
+        <item>Kanpur</item>
+        <item>Chennai</item>
+        <item>Pune</item>
+        <item>Indore</item>
+        <item>Ranchi</item>
+        <item>Raipur</item>
+        <item>Jalgaon</item>
+        <item>Kolhapur</item>
+    </string-array>
 </resources>

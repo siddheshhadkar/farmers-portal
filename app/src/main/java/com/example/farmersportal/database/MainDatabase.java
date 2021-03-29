@@ -1,7 +1,6 @@
 package com.example.farmersportal.database;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -34,8 +33,8 @@ public abstract class MainDatabase extends RoomDatabase {
             super.onCreate(db);
             dbWriteExecutor.execute(() -> {
                 UserDao userDao = INSTANCE.userDao();
-                userDao.insert(new User("A", "A@g.com", "1111111111", "pass", "loc"));
-                userDao.insert(new User("B", "B@g.com", "2222222222", "pass", "loc"));
+                userDao.insert(new User("A", "A@g.com", "1111111111", "pass", "loc", 0));
+                userDao.insert(new User("B", "B@g.com", "2222222222", "pass", "loc", 1));
             });
         }
 

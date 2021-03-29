@@ -13,13 +13,15 @@ public class User {
     private final String phoneNumber;
     private final String password;
     private final String location;
+    private final int userType;
 
-    public User(String name, String email, String phoneNumber, String password, String location) {
+    public User(String name, String email, String phoneNumber, String password, String location, int userType) {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.location = location;
+        this.userType = userType;
     }
 
     public void setId(int id) {
@@ -48,5 +50,9 @@ public class User {
 
     public String getLocation() {
         return location;
+    }
+
+    public int getUserType() {
+        return userType;
     }
 }
