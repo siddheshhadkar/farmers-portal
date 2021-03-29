@@ -36,6 +36,14 @@ public class UserViewModel extends AndroidViewModel {
         repository.valuesExist(enteredEmail, enteredPhone);
     }
 
+    public void emailExists(String enteredEmail) {
+        repository.emailExists(enteredEmail);
+    }
+
+    public void checkPassword(String enteredEmail, String enteredPassword) {
+        repository.checkPassword(enteredEmail, enteredPassword);
+    }
+
     public UserRepository getRepository() {
         return repository;
     }

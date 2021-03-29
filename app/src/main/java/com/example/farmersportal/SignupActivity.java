@@ -11,7 +11,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -68,7 +67,7 @@ public class SignupActivity extends AppCompatActivity {
         MainFactory factory = new MainFactory(getApplication());
         userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
 
-        userViewModel.getRepository().setCheckListener((emailExists, phoneExists) -> {
+        userViewModel.getRepository().setSignUpCheckListener((emailExists, phoneExists) -> {
             if (emailExists && phoneExists) {
                 runOnUiThread(() -> {
                     textInputEmail.setErrorEnabled(true);
@@ -104,6 +103,8 @@ public class SignupActivity extends AppCompatActivity {
 
                 User user = new User(name, email, phone, password, location, userType);
                 userViewModel.insert(user);
+
+                // TODO: 29-03-2021 DASHBOARD
             }
         });
 

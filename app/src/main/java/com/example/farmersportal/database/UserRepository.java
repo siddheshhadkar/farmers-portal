@@ -4,7 +4,8 @@ import android.app.Application;
 
 public class UserRepository {
     private final UserDao userDao;
-    private ValueCheckCallback callback;
+    private SignUpCheckCallback signUpCheckCallback;
+    private LogInCheckCallback logInCheckCallback;
 
     public UserRepository(Application application) {
         MainDatabase mainDatabase = MainDatabase.getInstance(application);
@@ -27,17 +28,33 @@ public class UserRepository {
         MainDatabase.dbWriteExecutor.execute(userDao::deleteAll);
     }
 
-    public void valuesExist(String enteredEmail, String enteredPhone){
-        MainDatabase.dbWriteExecutor.execute(()->{
-            callback.valueCheck(userDao.emailExists(enteredEmail), userDao.phoneExists(enteredPhone));
-        });
+    public void valuesExist(String enteredEmail, String enteredPhone) {
+        MainDatabase.dbWriteExecutor.execute(() -> signUpCheckCallback.valueCheck(userDao.emailExists(enteredEmail), userDao.phoneExists(enteredPhone)));
     }
 
-    public void setCheckListener(ValueCheckCallback callback) {
-        this.callback = callback;
+    public void emailExists(String enteredEmail) {
+        MainDatabase.dbWriteExecutor.execute(() -> logInCheckCallback.emailCheck(userDao.emailExists(enteredEmail)));
     }
 
-    public interface ValueCheckCallback {
+    public void checkPassword(String enteredEmail, String enteredPassword) {
+        MainDatabase.dbWriteExecutor.execute(() -> logInCheckCallback.accountValidate(userDao.accountExists(enteredEmail, enteredPassword)));
+    }
+
+    public void setSignUpCheckListener(SignUpCheckCallback callback) {
+        signUpCheckCallback = callback;
+    }
+
+    public void setLogInCheckListener(LogInCheckCallback callback) {
+        logInCheckCallback = callback;
+    }
+
+    public interface SignUpCheckCallback {
         void valueCheck(boolean emailExists, boolean phoneExists);
+    }
+
+    public interface LogInCheckCallback {
+        void emailCheck(boolean emailExists);
+
+        void accountValidate(boolean validated);
     }
 }

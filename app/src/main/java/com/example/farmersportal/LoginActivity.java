@@ -4,13 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.farmersportal.database.UserRepository;
+import com.example.farmersportal.viewmodel.MainFactory;
+import com.example.farmersportal.viewmodel.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -19,9 +21,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout textInputEmail;
     private TextInputLayout textInputPassword;
-    private RadioGroup radioGroup;
-    private RadioButton radioBuyer;
-    private RadioButton radioSeller;
+
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +32,43 @@ public class LoginActivity extends AppCompatActivity {
 
         textInputEmail = findViewById(R.id.textInputEmail);
         textInputPassword = findViewById(R.id.textInputPassword);
-        Button buttonLogin = findViewById(R.id.buttonLogin);
 
+        MainFactory factory = new MainFactory(getApplication());
+        userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
+        userViewModel.getRepository().setLogInCheckListener(new UserRepository.LogInCheckCallback() {
+            @Override
+            public void emailCheck(boolean emailExists) {
+                if (emailExists) {
+                    userViewModel.checkPassword(textInputEmail.getEditText().getText().toString().trim(), textInputPassword.getEditText().getText().toString().trim());
+                } else {
+                    runOnUiThread(() -> {
+                        textInputEmail.requestFocus();
+                        textInputEmail.setErrorEnabled(true);
+                        textInputEmail.setError("There is no account associated with this Email");
+                    });
+                }
+            }
+
+            @Override
+            public void accountValidate(boolean validated) {
+                if (validated) {
+                    // TODO: 29-03-2021 DASHBOARD
+                } else {
+                    runOnUiThread(() -> {
+                        textInputPassword.requestFocus();
+                        textInputPassword.setErrorEnabled(true);
+                        textInputPassword.setError("Entered password is incorrect. Please enter correct password");
+                    });
+                }
+            }
+        });
+
+        Button buttonLogin = findViewById(R.id.buttonLogin);
         buttonLogin.setOnClickListener(v -> {
-            if (!validateEmail() | !validatePassword() | !validateRadio()) {
+            if (!validateEmail() | !validatePassword()) {
                 return;
             }
-            Toast.makeText(this, "Otherwise", Toast.LENGTH_SHORT).show();
+            userViewModel.emailExists(textInputEmail.getEditText().getText().toString().trim());
         });
 
         TextView textViewSignUp = findViewById(R.id.textViewSignUp);
@@ -65,16 +96,12 @@ public class LoginActivity extends AppCompatActivity {
         String passwordInput = textInputPassword.getEditText().getText().toString().trim();
         if (passwordInput.isEmpty()) {
             textInputPassword.setErrorEnabled(true);
-            textInputPassword.setError("Please enter a password");
+            textInputPassword.setError("Please enter your password");
             return false;
         } else {
             textInputPassword.setErrorEnabled(false);
             textInputPassword.setError(null);
             return true;
         }
-    }
-
-    private boolean validateRadio() {
-        return true;
     }
 }

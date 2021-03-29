@@ -26,4 +26,7 @@ public interface UserDao {
 
     @Query("SELECT EXISTS (SELECT * FROM User WHERE phoneNumber=:enteredPhone)")
     boolean phoneExists(String enteredPhone);
+
+    @Query("SELECT EXISTS (SELECT * FROM User WHERE email=:enteredEmail AND password=:enteredPassword)")
+    boolean accountExists(String enteredEmail, String enteredPassword);
 }
