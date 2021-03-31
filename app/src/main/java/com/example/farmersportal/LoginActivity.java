@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -52,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void accountValidate(boolean validated) {
                 if (validated) {
-                    // TODO: 29-03-2021 DASHBOARD
+                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
                 } else {
                     runOnUiThread(() -> {
                         textInputPassword.requestFocus();
@@ -72,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         TextView textViewSignUp = findViewById(R.id.textViewSignUp);
-        textViewSignUp.setOnClickListener(v -> startActivity(new Intent(this, SignupActivity.class)));
+        textViewSignUp.setOnClickListener(v -> startActivity(new Intent(this, SignUpActivity.class)));
     }
 
     private boolean validateEmail() {

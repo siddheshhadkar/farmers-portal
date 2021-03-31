@@ -40,6 +40,10 @@ public class UserRepository {
         MainDatabase.dbWriteExecutor.execute(() -> logInCheckCallback.accountValidate(userDao.accountExists(enteredEmail, enteredPassword)));
     }
 
+    public User getUser(int id){
+        return userDao.getUser(id);
+    }
+
     public void setSignUpCheckListener(SignUpCheckCallback callback) {
         signUpCheckCallback = callback;
     }

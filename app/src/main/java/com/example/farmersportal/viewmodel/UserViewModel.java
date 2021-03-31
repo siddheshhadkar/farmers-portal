@@ -44,6 +44,10 @@ public class UserViewModel extends AndroidViewModel {
         repository.checkPassword(enteredEmail, enteredPassword);
     }
 
+    public User getUser(int id) {
+        return repository.getUser(id);
+    }
+
     public UserRepository getRepository() {
         return repository;
     }

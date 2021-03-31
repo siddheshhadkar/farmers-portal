@@ -10,13 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FarmersPortal">
         <activity
-            android:name=".SignupActivity"
+            android:name=".DashboardActivity"
+            android:theme="@style/Theme.FarmersPortal.NoActionBar" />
+        <activity
+            android:name=".SignUpActivity"
             android:noHistory="true" />
         <activity
             android:name=".LoginActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

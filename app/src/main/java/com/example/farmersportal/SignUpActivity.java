@@ -22,7 +22,7 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
 
     private TextInputLayout textInputEmail;
     private TextInputLayout textInputName;
@@ -104,7 +104,7 @@ public class SignupActivity extends AppCompatActivity {
                 User user = new User(name, email, phone, password, location, userType);
                 userViewModel.insert(user);
 
-                // TODO: 29-03-2021 DASHBOARD
+                startActivity(new Intent(this, DashboardActivity.class));
             }
         });
 
