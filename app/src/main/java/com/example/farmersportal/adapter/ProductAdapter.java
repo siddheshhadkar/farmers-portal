@@ -10,13 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmersportal.R;
 import com.example.farmersportal.database.Product;
+import com.example.farmersportal.database.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
     private List<Product> productList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
+    private Map<Integer, User> map = new HashMap<>();
     private OnItemClickListener listener;
 
     @NonNull
@@ -29,9 +34,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductHolder holder, int position) {
         Product product = productList.get(position);
+        int userId = product.getUserId();
+        User user = map.get(userId);
+
         holder.product.setText(product.getName());
-        holder.seller.setText("SELLER");
-        holder.location.setText("LOCATION");
+        holder.seller.setText(user.getName());
+        holder.location.setText(user.getLocation());
         holder.price.setText(product.getPrice());
     }
 
@@ -40,12 +48,20 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         return productList.size();
     }
 
-    public void setProductList(List<Product> productList){
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+        map = new HashMap<>();
+        for (User user : userList) {
+            map.put(user.getId(), user);
+        }
+    }
+
+    public void setProductList(List<Product> productList) {
         this.productList = productList;
         notifyDataSetChanged();
     }
 
-    public Product getProductAt(int position){
+    public Product getProductAt(int position) {
         return productList.get(position);
     }
 

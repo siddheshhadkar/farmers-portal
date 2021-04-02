@@ -4,10 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.example.farmersportal.database.User;
 import com.example.farmersportal.database.UserRepository;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class UserViewModel extends AndroidViewModel {
@@ -48,6 +50,10 @@ public class UserViewModel extends AndroidViewModel {
 
     public User getUser(String email) throws ExecutionException, InterruptedException {
         return repository.getUser(email);
+    }
+
+    public LiveData<List<User>> getUsers() {
+        return repository.getUsers();
     }
 
     public UserRepository getRepository() {

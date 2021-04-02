@@ -2,6 +2,9 @@ package com.example.farmersportal.database;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
@@ -49,6 +52,10 @@ public class UserRepository {
         Callable<User> callable = () -> userDao.getUser(email);
         Future<User> future = Executors.newSingleThreadExecutor().submit(callable);
         return future.get();
+    }
+
+    public LiveData<List<User>> getUsers() {
+        return userDao.getUsers();
     }
 
     public void setSignUpCheckListener(SignUpCheckCallback callback) {
