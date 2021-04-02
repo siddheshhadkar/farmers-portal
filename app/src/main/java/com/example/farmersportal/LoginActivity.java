@@ -22,6 +22,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout textInputPassword;
 
     private UserViewModel userViewModel;
+    private String email;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void emailCheck(boolean emailExists) {
                 if (emailExists) {
-                    userViewModel.checkPassword(textInputEmail.getEditText().getText().toString().trim(), textInputPassword.getEditText().getText().toString().trim());
+                    userViewModel.checkPassword(email, password);
                 } else {
                     runOnUiThread(() -> {
                         textInputEmail.requestFocus();
@@ -51,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void accountValidate(boolean validated) {
                 if (validated) {
-                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class).putExtra("EXTRA_EMAIL", textInputEmail.getEditText().getText().toString().trim()));
+                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class).putExtra("EXTRA_EMAIL", email));
                 } else {
                     runOnUiThread(() -> {
                         textInputPassword.requestFocus();
@@ -67,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             if (!validateEmail() | !validatePassword()) {
                 return;
             }
-            userViewModel.emailExists(textInputEmail.getEditText().getText().toString().trim());
+            userViewModel.emailExists(email);
         });
 
         TextView textViewSignUp = findViewById(R.id.textViewSignUp);
@@ -75,12 +77,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validateEmail() {
-        String emailInput = textInputEmail.getEditText().getText().toString().trim();
-        if (emailInput.isEmpty()) {
+        email = Objects.requireNonNull(textInputEmail.getEditText()).getText().toString().trim();
+        if (email.isEmpty()) {
             textInputEmail.setErrorEnabled(true);
             textInputEmail.setError("Please enter Email");
             return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             textInputEmail.setErrorEnabled(true);
             textInputEmail.setError("Please enter a valid email address");
             return false;
@@ -92,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        String passwordInput = textInputPassword.getEditText().getText().toString().trim();
-        if (passwordInput.isEmpty()) {
+        password = Objects.requireNonNull(textInputPassword.getEditText()).getText().toString().trim();
+        if (password.isEmpty()) {
             textInputPassword.setErrorEnabled(true);
             textInputPassword.setError("Please enter your password");
             return false;
