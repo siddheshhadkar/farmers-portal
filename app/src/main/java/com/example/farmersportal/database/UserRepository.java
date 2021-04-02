@@ -2,6 +2,11 @@ package com.example.farmersportal.database;
 
 import android.app.Application;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class UserRepository {
     private final UserDao userDao;
     private SignUpCheckCallback signUpCheckCallback;
@@ -40,8 +45,10 @@ public class UserRepository {
         MainDatabase.dbWriteExecutor.execute(() -> logInCheckCallback.accountValidate(userDao.accountExists(enteredEmail, enteredPassword)));
     }
 
-    public User getUser(int id){
-        return userDao.getUser(id);
+    public User getUser(String email) throws ExecutionException, InterruptedException {
+        Callable<User> callable = () -> userDao.getUser(email);
+        Future<User> future = Executors.newSingleThreadExecutor().submit(callable);
+        return future.get();
     }
 
     public void setSignUpCheckListener(SignUpCheckCallback callback) {

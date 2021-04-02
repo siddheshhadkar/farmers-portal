@@ -8,6 +8,8 @@ import androidx.lifecycle.AndroidViewModel;
 import com.example.farmersportal.database.User;
 import com.example.farmersportal.database.UserRepository;
 
+import java.util.concurrent.ExecutionException;
+
 public class UserViewModel extends AndroidViewModel {
     private final UserRepository repository;
 
@@ -44,8 +46,8 @@ public class UserViewModel extends AndroidViewModel {
         repository.checkPassword(enteredEmail, enteredPassword);
     }
 
-    public User getUser(int id) {
-        return repository.getUser(id);
+    public User getUser(String email) throws ExecutionException, InterruptedException {
+        return repository.getUser(email);
     }
 
     public UserRepository getRepository() {

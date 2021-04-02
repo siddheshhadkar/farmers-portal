@@ -30,6 +30,6 @@ public interface UserDao {
     @Query("SELECT EXISTS (SELECT * FROM User WHERE email=:enteredEmail AND password=:enteredPassword)")
     boolean accountExists(String enteredEmail, String enteredPassword);
 
-    @Query("SELECT * FROM User WHERE id=:id")
-    User getUser(int id);
+    @Query("SELECT * FROM User WHERE email=:email")
+    User getUser(String email);
 }

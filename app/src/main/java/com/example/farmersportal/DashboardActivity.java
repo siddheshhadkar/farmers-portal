@@ -7,9 +7,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentContainerView;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.farmersportal.database.User;
 import com.example.farmersportal.fragment.BuyerCardsFragment;
 import com.example.farmersportal.fragment.SellerCardsFragment;
 import com.example.farmersportal.viewmodel.MainFactory;
@@ -17,9 +17,6 @@ import com.example.farmersportal.viewmodel.UserViewModel;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class DashboardActivity extends AppCompatActivity {
-
-    private FragmentContainerView fragmentContainerView;
-    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +28,20 @@ public class DashboardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         MainFactory factory = new MainFactory(getApplication());
-        userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
+        UserViewModel userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);
 
-        fragmentContainerView = findViewById(R.id.fragmentContainerView);
-
-        int userType = 1;
-        if (userType == 0) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new BuyerCardsFragment()).commit();
-        } else {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new SellerCardsFragment()).commit();
+        String email = getIntent().getStringExtra("EXTRA_EMAIL");
+        User user;
+        try {
+            user = userViewModel.getUser(email);
+            if (user.getUserType() == 0) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new BuyerCardsFragment()).commit();
+            } else {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new SellerCardsFragment()).commit();
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "There was an error logging in.\nPlease try again", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 

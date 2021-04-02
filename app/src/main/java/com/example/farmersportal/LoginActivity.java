@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void accountValidate(boolean validated) {
                 if (validated) {
-                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class));
+                    startActivity(new Intent(LoginActivity.this, DashboardActivity.class).putExtra("EXTRA_EMAIL", textInputEmail.getEditText().getText().toString().trim()));
                 } else {
                     runOnUiThread(() -> {
                         textInputPassword.requestFocus();

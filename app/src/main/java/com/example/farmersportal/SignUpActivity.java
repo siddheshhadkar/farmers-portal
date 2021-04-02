@@ -34,6 +34,10 @@ public class SignUpActivity extends AppCompatActivity {
     private UserViewModel userViewModel;
 
     private String location;
+    private String name;
+    private String email;
+    private String phone;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +93,6 @@ public class SignUpActivity extends AppCompatActivity {
                     textInputPhone.requestFocus();
                 });
             } else {
-                String name = textInputName.getEditText().getText().toString().trim();
-                String email = textInputEmail.getEditText().getText().toString().trim();
-                String phone = textInputPhone.getEditText().getText().toString().trim();
-                String password = textInputPassword.getEditText().getText().toString().trim();
                 int userType;
 
                 RadioButton radioButton = findViewById(radioGroup.getCheckedRadioButtonId());
@@ -104,7 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                 User user = new User(name, email, phone, password, location, userType);
                 userViewModel.insert(user);
 
-                startActivity(new Intent(this, DashboardActivity.class));
+                startActivity(new Intent(this, DashboardActivity.class).putExtra("EXTRA_EMAIL", email));
             }
         });
 
@@ -113,7 +113,7 @@ public class SignUpActivity extends AppCompatActivity {
             if (!validateName() | !validateEmail() | !validatePhone() | !validatePassword()) {
                 return;
             }
-            userViewModel.valuesExist(textInputEmail.getEditText().getText().toString().trim(), textInputPhone.getEditText().getText().toString().trim());
+            userViewModel.valuesExist(email, phone);
         });
 
         TextView textViewLogIn = findViewById(R.id.textViewLogIn);
@@ -121,8 +121,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean validateName() {
-        String nameInput = textInputName.getEditText().getText().toString().trim();
-        if (nameInput.isEmpty()) {
+        name = Objects.requireNonNull(textInputName.getEditText()).getText().toString().trim();
+        if (name.isEmpty()) {
             textInputName.setErrorEnabled(true);
             textInputName.setError("Please enter your name");
             return false;
@@ -134,12 +134,12 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean validateEmail() {
-        String emailInput = textInputEmail.getEditText().getText().toString().trim();
-        if (emailInput.isEmpty()) {
+        email = Objects.requireNonNull(textInputEmail.getEditText()).getText().toString().trim();
+        if (email.isEmpty()) {
             textInputEmail.setErrorEnabled(true);
             textInputEmail.setError("Please enter Email");
             return false;
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             textInputEmail.setErrorEnabled(true);
             textInputEmail.setError("Please enter a valid email address");
             return false;
@@ -151,12 +151,12 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean validatePhone() {
-        String phoneInput = textInputPhone.getEditText().getText().toString().trim();
-        if (phoneInput.isEmpty()) {
+        phone = Objects.requireNonNull(textInputPhone.getEditText()).getText().toString().trim();
+        if (phone.isEmpty()) {
             textInputPhone.setErrorEnabled(true);
             textInputPhone.setError("Please enter your phone number");
             return false;
-        } else if (!phoneInput.matches("\\d{10}")) {
+        } else if (!phone.matches("\\d{10}")) {
             textInputPhone.setErrorEnabled(true);
             textInputPhone.setError("Please enter a valid phone number");
             return false;
@@ -168,8 +168,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        String passwordInput = textInputPassword.getEditText().getText().toString().trim();
-        if (passwordInput.isEmpty()) {
+        password = Objects.requireNonNull(textInputPassword.getEditText()).getText().toString().trim();
+        if (password.isEmpty()) {
             textInputPassword.setErrorEnabled(true);
             textInputPassword.setError("Please enter a password");
             return false;
