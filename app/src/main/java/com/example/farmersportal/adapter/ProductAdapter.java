@@ -20,7 +20,6 @@ import java.util.Map;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductHolder> {
 
     private List<Product> productList = new ArrayList<>();
-    private List<User> userList = new ArrayList<>();
     private Map<Integer, User> map = new HashMap<>();
     private OnItemClickListener listener;
 
@@ -34,8 +33,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     @Override
     public void onBindViewHolder(@NonNull ProductAdapter.ProductHolder holder, int position) {
         Product product = productList.get(position);
-        int userId = product.getUserId();
-        User user = map.get(userId);
+        int sellerId = product.getSellerId();
+        User user = map.get(sellerId);
 
         holder.product.setText(product.getName());
         holder.seller.setText(user.getName());
@@ -49,7 +48,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     }
 
     public void setUserList(List<User> userList) {
-        this.userList = userList;
         map = new HashMap<>();
         for (User user : userList) {
             map.put(user.getId(), user);
@@ -59,10 +57,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public void setProductList(List<Product> productList) {
         this.productList = productList;
         notifyDataSetChanged();
-    }
-
-    public Product getProductAt(int position) {
-        return productList.get(position);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {

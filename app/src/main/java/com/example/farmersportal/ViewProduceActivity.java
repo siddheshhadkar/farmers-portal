@@ -25,7 +25,10 @@ public class ViewProduceActivity extends AppCompatActivity {
         ProductViewModel productViewModel = new ViewModelProvider(this, factory).get(ProductViewModel.class);
 
         ProductAdapter adapter = new ProductAdapter();
-        adapter.setOnItemClickListener(product -> Toast.makeText(ViewProduceActivity.this, product.getName(), Toast.LENGTH_SHORT).show());
+        adapter.setOnItemClickListener(product -> {
+            int userId = product.getSellerId();
+            Toast.makeText(this, userId + " " + product.getId(), Toast.LENGTH_SHORT).show();
+        });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -33,6 +36,6 @@ public class ViewProduceActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         userViewModel.getUsers().observe(this, adapter::setUserList);
-        productViewModel.getProducts().observe(this, adapter::setProductList);
+        productViewModel.getUnsoldProducts().observe(this, adapter::setProductList);
     }
 }

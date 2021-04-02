@@ -30,7 +30,7 @@ public class ProductRepository {
         MainDatabase.dbWriteExecutor.execute(productDao::deleteAll);
     }
 
-    public LiveData<List<Product>> getProducts(){
-        return productDao.getProducts();
+    public LiveData<List<Product>> getUnsoldProducts(){
+        return productDao.getUnsoldProducts();
     }
 }
