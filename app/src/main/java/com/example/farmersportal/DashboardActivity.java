@@ -22,10 +22,7 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Dashboard");
-        setSupportActionBar(toolbar);
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         MainFactory factory = new MainFactory(getApplication());
         UserViewModel userViewModel = new ViewModelProvider(this, factory).get(UserViewModel.class);

@@ -8,10 +8,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FarmersPortal">
-        <activity
-            android:name=".DashboardActivity"
-            android:theme="@style/Theme.FarmersPortal.NoActionBar" />
+        android:theme="@style/Theme.FarmersPortal.NoActionBar">
+        <activity android:name=".ViewProduceActivity" />
+        <activity android:name=".DashboardActivity" />
         <activity
             android:name=".SignUpActivity"
             android:noHistory="true" />

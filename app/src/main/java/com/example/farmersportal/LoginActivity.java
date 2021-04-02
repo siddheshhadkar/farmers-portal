@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.farmersportal.database.UserRepository;
 import com.example.farmersportal.viewmodel.MainFactory;
 import com.example.farmersportal.viewmodel.UserViewModel;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Objects;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Portal Log In");
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         textInputEmail = findViewById(R.id.textInputEmail);
         textInputPassword = findViewById(R.id.textInputPassword);

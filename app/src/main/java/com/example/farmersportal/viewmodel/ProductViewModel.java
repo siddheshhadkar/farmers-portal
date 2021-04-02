@@ -4,9 +4,12 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 import com.example.farmersportal.database.Product;
 import com.example.farmersportal.database.ProductRepository;
+
+import java.util.List;
 
 public class ProductViewModel extends AndroidViewModel {
     private final ProductRepository repository;
@@ -30,5 +33,9 @@ public class ProductViewModel extends AndroidViewModel {
 
     public void deleteAll() {
         repository.deleteAll();
+    }
+
+    public LiveData<List<Product>> getProducts(){
+        return repository.getProducts();
     }
 }

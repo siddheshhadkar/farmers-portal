@@ -43,7 +43,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("Portal Sign Up");
+        setSupportActionBar(findViewById(R.id.toolbar));
 
         textInputEmail = findViewById(R.id.textInputEmail);
         textInputName = findViewById(R.id.textInputName);

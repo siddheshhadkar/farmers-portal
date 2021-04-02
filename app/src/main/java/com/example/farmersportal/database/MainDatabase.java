@@ -35,6 +35,12 @@ public abstract class MainDatabase extends RoomDatabase {
                 UserDao userDao = INSTANCE.userDao();
                 userDao.insert(new User("A", "A@g.com", "1111111111", "pass", "loc", 0));
                 userDao.insert(new User("B", "B@g.com", "2222222222", "pass", "loc", 1));
+
+                ProductDao productDao = INSTANCE.productDao();
+                productDao.insert(new Product(1, "Rice", "2067"));
+                productDao.insert(new Product(2, "Wheat", "7612"));
+                productDao.insert(new Product(1, "Corn", "3647"));
+                productDao.insert(new Product(1, "Sugarcane", "10075"));
             });
         }
 

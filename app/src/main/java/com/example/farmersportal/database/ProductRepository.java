@@ -2,6 +2,10 @@ package com.example.farmersportal.database;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
+import java.util.List;
+
 public class ProductRepository {
     private final ProductDao productDao;
 
@@ -24,5 +28,9 @@ public class ProductRepository {
 
     public void deleteAll() {
         MainDatabase.dbWriteExecutor.execute(productDao::deleteAll);
+    }
+
+    public LiveData<List<Product>> getProducts(){
+        return productDao.getProducts();
     }
 }

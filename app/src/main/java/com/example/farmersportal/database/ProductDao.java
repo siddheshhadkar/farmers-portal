@@ -1,10 +1,13 @@
 package com.example.farmersportal.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import java.util.List;
 
 @Dao
 public interface ProductDao {
@@ -20,4 +23,7 @@ public interface ProductDao {
 
     @Query("DELETE FROM Product")
     void deleteAll();
+
+    @Query("SELECT * FROM Product")
+    LiveData<List<Product>> getProducts();
 }
