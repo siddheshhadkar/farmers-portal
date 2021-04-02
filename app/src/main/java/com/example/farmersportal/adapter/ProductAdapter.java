@@ -34,11 +34,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
     public void onBindViewHolder(@NonNull ProductAdapter.ProductHolder holder, int position) {
         Product product = productList.get(position);
         int sellerId = product.getSellerId();
-        User user = map.get(sellerId);
+        User seller = map.get(sellerId);
 
         holder.product.setText(product.getName());
-        holder.seller.setText(user.getName());
-        holder.location.setText(user.getLocation());
+        holder.seller.setText(seller.getName());
+        holder.location.setText(seller.getLocation());
         holder.price.setText(product.getPrice());
     }
 
