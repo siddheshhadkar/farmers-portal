@@ -1,5 +1,6 @@
-package com.example.farmersportal;
+package com.example.farmersportal.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.farmersportal.R;
 import com.example.farmersportal.adapter.ProductAdapter;
 import com.example.farmersportal.viewmodel.MainFactory;
 import com.example.farmersportal.viewmodel.ProductViewModel;
@@ -26,8 +28,10 @@ public class ViewProduceActivity extends AppCompatActivity {
 
         ProductAdapter adapter = new ProductAdapter();
         adapter.setOnItemClickListener(product -> {
-            int userId = product.getSellerId();
-            Toast.makeText(this, userId + " " + product.getId(), Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, ProduceDetailsActivity.class);
+            i.putExtra("EXTRA_PRODUCT_ID", product.getId());
+            i.putExtra("EXTRA_SELLER_ID", product.getSellerId());
+            startActivity(i);
         });
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);

@@ -1,4 +1,4 @@
-package com.example.farmersportal;
+package com.example.farmersportal.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.farmersportal.R;
 import com.example.farmersportal.database.User;
 import com.example.farmersportal.viewmodel.MainFactory;
 import com.example.farmersportal.viewmodel.UserViewModel;

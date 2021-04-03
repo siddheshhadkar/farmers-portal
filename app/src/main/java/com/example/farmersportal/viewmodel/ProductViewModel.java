@@ -10,6 +10,7 @@ import com.example.farmersportal.database.Product;
 import com.example.farmersportal.database.ProductRepository;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class ProductViewModel extends AndroidViewModel {
     private final ProductRepository repository;
@@ -35,7 +36,11 @@ public class ProductViewModel extends AndroidViewModel {
         repository.deleteAll();
     }
 
-    public LiveData<List<Product>> getUnsoldProducts(){
+    public Product getProduct(int id) throws ExecutionException, InterruptedException {
+        return repository.getProduct(id);
+    }
+
+    public LiveData<List<Product>> getUnsoldProducts() {
         return repository.getUnsoldProducts();
     }
 }

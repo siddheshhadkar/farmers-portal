@@ -54,6 +54,12 @@ public class UserRepository {
         return future.get();
     }
 
+    public User getUser(int id) throws ExecutionException, InterruptedException {
+        Callable<User> callable = () -> userDao.getUser(id);
+        Future<User> future = Executors.newSingleThreadExecutor().submit(callable);
+        return future.get();
+    }
+
     public LiveData<List<User>> getUsers() {
         return userDao.getUsers();
     }

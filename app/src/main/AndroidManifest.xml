@@ -9,13 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FarmersPortal.NoActionBar">
-        <activity android:name=".ViewProduceActivity" />
-        <activity android:name=".DashboardActivity" />
+        <activity android:name=".activity.ProduceDetailsActivity"></activity>
+        <activity android:name=".activity.ViewProduceActivity" />
+        <activity android:name=".activity.DashboardActivity" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activity.SignUpActivity"
             android:noHistory="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

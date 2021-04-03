@@ -52,6 +52,10 @@ public class UserViewModel extends AndroidViewModel {
         return repository.getUser(email);
     }
 
+    public User getUser(int id) throws ExecutionException, InterruptedException {
+        return repository.getUser(id);
+    }
+
     public LiveData<List<User>> getUsers() {
         return repository.getUsers();
     }

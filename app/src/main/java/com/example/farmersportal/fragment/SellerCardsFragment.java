@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.farmersportal.R;
-import com.example.farmersportal.ViewProduceActivity;
+import com.example.farmersportal.activity.ViewProduceActivity;
 import com.google.android.material.card.MaterialCardView;
 
 public class SellerCardsFragment extends Fragment {

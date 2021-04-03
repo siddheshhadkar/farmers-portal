@@ -24,6 +24,9 @@ public interface ProductDao {
     @Query("DELETE FROM Product")
     void deleteAll();
 
+    @Query("SELECT * FROM Product WHERE id=:id")
+    Product getProduct(int id);
+
     @Query("SELECT * FROM Product WHERE buyerId=0")
     LiveData<List<Product>> getUnsoldProducts();
 }
