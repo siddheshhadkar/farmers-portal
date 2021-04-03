@@ -36,10 +36,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
         int sellerId = product.getSellerId();
         User seller = map.get(sellerId);
 
-        holder.product.setText(product.getName());
-        holder.seller.setText(seller.getName());
-        holder.location.setText(seller.getLocation());
-        holder.price.setText(product.getPrice());
+        if (seller != null) {
+            holder.product.setText(product.getName());
+            holder.seller.setText(seller.getName());
+            holder.location.setText(seller.getLocation());
+            holder.price.setText(product.getPrice());
+        }
     }
 
     @Override

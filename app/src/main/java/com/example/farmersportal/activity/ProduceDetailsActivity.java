@@ -55,7 +55,7 @@ public class ProduceDetailsActivity extends AppCompatActivity {
                 textViewLocation.setText(seller.getLocation());
                 textViewEmail.setText(seller.getEmail());
                 textViewPhone.setText(seller.getPhoneNumber());
-                textViewWeight.setText("WEIGHT");
+                textViewWeight.setText(String.format("%s", product.getQuantity()));
                 textViewPrice.setText(product.getPrice());
             } catch (Exception e) {
                 e.printStackTrace();

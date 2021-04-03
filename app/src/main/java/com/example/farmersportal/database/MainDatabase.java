@@ -40,14 +40,14 @@ public abstract class MainDatabase extends RoomDatabase {
                 userDao.insert(new User("E", "E@g.com", "5555555555", "pass", "Chennai", 0));
 
                 ProductDao productDao = INSTANCE.productDao();
-                productDao.insert(new Product("Rice", "2067", 1, 0));
-                productDao.insert(new Product("Tomato", "1454", 3, 0));
-                productDao.insert(new Product("Corn", "3647", 1, 0));
-                productDao.insert(new Product("Sugarcane", "10075", 1, 0));
-                productDao.insert(new Product("Cotton", "50000", 3, 0));
-                productDao.insert(new Product("Jute", "5400", 3, 0));
-                productDao.insert(new Product("Coffee", "68494", 3, 0));
-                productDao.insert(new Product("Sugarcane", "10075", 1, 0));
+                productDao.insert(new Product("Rice", "2067", 203, 1, 0));
+                productDao.insert(new Product("Tomato", "1454", 64, 3, 0));
+                productDao.insert(new Product("Corn", "3647", 742, 1, 0));
+                productDao.insert(new Product("Sugarcane", "10075", 365, 1, 0));
+                productDao.insert(new Product("Cotton", "50000", 739, 3, 0));
+                productDao.insert(new Product("Jute", "5400", 671, 3, 0));
+                productDao.insert(new Product("Coffee", "68494", 438, 3, 0));
+                productDao.insert(new Product("Sugarcane", "1075", 40, 1, 0));
             });
         }
 

@@ -11,12 +11,14 @@ public class Product {
     private int id;
     private final String name;
     private final String price;
+    private final int quantity;
     private final int sellerId;
     private final int buyerId;
 
-    public Product(String name, String price, int sellerId, int buyerId) {
+    public Product(String name, String price, int quantity, int sellerId, int buyerId) {
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
         this.sellerId = sellerId;
         this.buyerId = buyerId;
     }
@@ -35,6 +37,10 @@ public class Product {
 
     public String getPrice() {
         return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 
     public int getSellerId() {
