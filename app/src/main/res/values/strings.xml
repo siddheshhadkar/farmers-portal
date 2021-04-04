@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">Farmers Portal</string>
+    <string name="textview_product_name">&lt;b>Produce: &lt;/b>%1s</string>
+    <string name="textview_quantity">&lt;b>Quantity: &lt;/b>%1d KG</string>
+    <string name="textview_price">&lt;b>Price: &lt;/b>Rs. %1s</string>
+    <string name="textview_location">&lt;b>Location: &lt;/b>%1s</string>
+    <string name="textview_seller_name">&lt;b>Seller: &lt;/b>%1s</string>
+    <string name="textview_email">&lt;b>Email: &lt;/b>%1s</string>
+    <string name="textview_phone">&lt;b>Phone: &lt;/b>%1s</string>
+
     <string-array name="location_array">
         <item>Mumbai</item>
         <item>Delhi</item>

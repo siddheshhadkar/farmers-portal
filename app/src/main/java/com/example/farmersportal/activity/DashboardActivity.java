@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.farmersportal.R;
+import com.example.farmersportal.application.BaseApplication;
 import com.example.farmersportal.database.User;
 import com.example.farmersportal.fragment.BuyerCardsFragment;
 import com.example.farmersportal.fragment.SellerCardsFragment;
@@ -31,6 +32,7 @@ public class DashboardActivity extends AppCompatActivity {
         User user;
         try {
             user = userViewModel.getUser(email);
+            BaseApplication.getApplicationInstance().setSessionUser(user);
             if (user.getUserType() == 0) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new BuyerCardsFragment()).commit();
             } else {
