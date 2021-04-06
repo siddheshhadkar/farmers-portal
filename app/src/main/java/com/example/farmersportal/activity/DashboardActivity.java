@@ -1,5 +1,6 @@
 package com.example.farmersportal.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,10 +54,12 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.profile_menu) {
-            Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ProfileActivity.class));
             return true;
         } else if (item.getItemId() == R.id.log_out_menu) {
-            Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+            BaseApplication.getApplicationInstance().setSessionUser(null);
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
             return true;
         } else {
             return super.onOptionsItemSelected(item);
