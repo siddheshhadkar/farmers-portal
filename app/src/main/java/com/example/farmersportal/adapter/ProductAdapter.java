@@ -38,9 +38,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductH
 
         if (seller != null) {
             holder.product.setText(product.getName());
-            holder.seller.setText(seller.getName());
+            holder.seller.setText(product.getQuantity() + " KG");
             holder.location.setText(seller.getLocation());
-            holder.price.setText(product.getPrice());
+            holder.price.setText("\u20B9 "+product.getPrice());
         }
     }
 
