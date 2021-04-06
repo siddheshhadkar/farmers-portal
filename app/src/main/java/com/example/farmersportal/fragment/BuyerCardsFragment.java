@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.farmersportal.R;
+import com.example.farmersportal.activity.OrderHistoryActivity;
 import com.example.farmersportal.activity.ViewProduceActivity;
 import com.google.android.material.card.MaterialCardView;
 
@@ -26,7 +27,7 @@ public class BuyerCardsFragment extends Fragment {
 
         cardViewProduce.setOnClickListener(v -> startActivity(new Intent(requireContext(), ViewProduceActivity.class)));
 
-        cardHistory.setOnClickListener(v -> Toast.makeText(requireContext(), "History", Toast.LENGTH_SHORT).show());
+        cardHistory.setOnClickListener(v -> startActivity(new Intent(requireContext(), OrderHistoryActivity.class)));
 
         return layout;
     }

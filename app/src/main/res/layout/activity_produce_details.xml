@@ -119,12 +119,52 @@
                 android:paddingTop="8dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="8dp"
-                android:text="@string/textview_product_name"
+                android:text="@string/textview_price"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintBottom_toTopOf="@+id/buttonSendEmail"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewQuantity"
-                app:layout_constraintVertical_chainStyle="spread" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewQuantity" />
+
+            <TextView
+                android:id="@+id/textViewBuyer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:text="@string/textview_buyer_name"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
+
+            <TextView
+                android:id="@+id/textViewBuyerEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:text="@string/textview_buyer_email"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBuyer" />
+
+            <TextView
+                android:id="@+id/textViewBuyerPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:text="@string/textview_buyer_phone"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewBuyerEmail" />
 
             <Button
                 android:id="@+id/buttonSendEmail"
@@ -135,14 +175,14 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Mail seller"
-                app:layout_constraintBottom_toTopOf="@+id/buttonCallSeller"
+                app:layout_constraintBottom_toTopOf="@+id/buttonCall"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewBuyerPhone"
+                app:layout_goneMarginTop="8dp" />
 
             <Button
-                android:id="@+id/buttonCallSeller"
+                android:id="@+id/buttonCall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

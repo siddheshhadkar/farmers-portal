@@ -2,7 +2,6 @@ package com.example.farmersportal.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,16 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.farmersportal.R;
 import com.example.farmersportal.adapter.ProductAdapter;
+import com.example.farmersportal.application.BaseApplication;
+import com.example.farmersportal.database.User;
 import com.example.farmersportal.viewmodel.MainFactory;
 import com.example.farmersportal.viewmodel.ProductViewModel;
 import com.example.farmersportal.viewmodel.UserViewModel;
 
-public class ViewProduceActivity extends AppCompatActivity {
+public class OrderHistoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_produce);
+        setContentView(R.layout.activity_order_history);
         setSupportActionBar(findViewById(R.id.toolbar));
 
         MainFactory factory = new MainFactory(getApplication());
@@ -41,6 +42,11 @@ public class ViewProduceActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         userViewModel.getUsers().observe(this, adapter::setUserList);
-        productViewModel.getUnsoldProducts().observe(this, adapter::setProductList);
+        User user = BaseApplication.getApplicationInstance().getSessionUser();
+        if (user.getUserType() == 0) {
+            productViewModel.getBoughtProducts(user.getId()).observe(this, adapter::setProductList);
+        } else {
+            productViewModel.getSoldProducts(user.getId()).observe(this, adapter::setProductList);
+        }
     }
 }

@@ -7,6 +7,9 @@
     <string name="textview_seller_name">&lt;b>Seller: &lt;/b>%1s</string>
     <string name="textview_email">&lt;b>Email: &lt;/b>%1s</string>
     <string name="textview_phone">&lt;b>Phone: &lt;/b>%1s</string>
+    <string name="textview_buyer_name">&lt;b>Buyer: &lt;/b>%1s</string>
+    <string name="textview_buyer_email">&lt;b>Buyer Email: &lt;/b>%1s</string>
+    <string name="textview_buyer_phone">&lt;b>Buyer Phone: &lt;/b>%1s</string>
 
     <string-array name="location_array">
         <item>Mumbai</item>

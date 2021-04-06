@@ -43,4 +43,12 @@ public class ProductRepository {
     public LiveData<List<Product>> getUnsoldProducts() {
         return productDao.getUnsoldProducts();
     }
+
+    public LiveData<List<Product>> getSoldProducts(int sellerId) {
+        return productDao.getSoldProducts(sellerId);
+    }
+
+    public LiveData<List<Product>> getBoughtProducts(int buyerId) {
+        return productDao.getBoughtProducts(buyerId);
+    }
 }

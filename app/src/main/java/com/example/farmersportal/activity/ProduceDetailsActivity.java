@@ -1,7 +1,6 @@
 package com.example.farmersportal.activity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,8 +45,11 @@ public class ProduceDetailsActivity extends AppCompatActivity {
         TextView textViewPhone = findViewById(R.id.textViewPhone);
         TextView textViewQuantity = findViewById(R.id.textViewQuantity);
         TextView textViewPrice = findViewById(R.id.textViewPrice);
+        TextView textViewBuyer = findViewById(R.id.textViewBuyer);
+        TextView textViewBuyerEmail = findViewById(R.id.textViewBuyerEmail);
+        TextView textViewBuyerPhone = findViewById(R.id.textViewBuyerPhone);
         Button buttonSendEmail = findViewById(R.id.buttonSendEmail);
-        Button buttonCallSeller = findViewById(R.id.buttonCallSeller);
+        Button buttonCall = findViewById(R.id.buttonCall);
         Button buttonPlaceOrder = findViewById(R.id.buttonPlaceOrder);
 
         if (productId == 0 || sellerId == 0) {
@@ -71,7 +73,7 @@ public class ProduceDetailsActivity extends AppCompatActivity {
                 spanned = Html.fromHtml(string, Html.FROM_HTML_MODE_LEGACY);
                 textViewSeller.setText(spanned);
 
-                string = getString(R.string.textview_location, seller.getEmail());
+                string = getString(R.string.textview_location, seller.getLocation());
                 spanned = Html.fromHtml(string, Html.FROM_HTML_MODE_LEGACY);
                 textViewLocation.setText(spanned);
 
@@ -101,7 +103,7 @@ public class ProduceDetailsActivity extends AppCompatActivity {
                     }
                 });
 
-                buttonCallSeller.setOnClickListener(v -> {
+                buttonCall.setOnClickListener(v -> {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse("tel:" + seller.getPhoneNumber()));
                     try {
@@ -111,7 +113,47 @@ public class ProduceDetailsActivity extends AppCompatActivity {
                     }
                 });
 
-                if (BaseApplication.getApplicationInstance().getSessionUser().getUserType() == 0){
+                if (product.getBuyerId() != 0 && BaseApplication.getApplicationInstance().getSessionUser().getUserType() == 1) {
+                    User buyer = userViewModel.getUser(product.getBuyerId());
+                    string = getString(R.string.textview_buyer_name, buyer.getName());
+                    spanned = Html.fromHtml(string, Html.FROM_HTML_MODE_LEGACY);
+                    textViewBuyer.setText(spanned);
+                    textViewBuyer.setVisibility(View.VISIBLE);
+
+                    string = getString(R.string.textview_buyer_email, buyer.getEmail());
+                    spanned = Html.fromHtml(string, Html.FROM_HTML_MODE_LEGACY);
+                    textViewBuyerEmail.setText(spanned);
+                    textViewBuyerEmail.setVisibility(View.VISIBLE);
+
+                    string = getString(R.string.textview_buyer_phone, buyer.getPhoneNumber());
+                    spanned = Html.fromHtml(string, Html.FROM_HTML_MODE_LEGACY);
+                    textViewBuyerPhone.setText(spanned);
+                    textViewBuyerPhone.setVisibility(View.VISIBLE);
+
+                    buttonSendEmail.setText("Mail Buyer");
+                    buttonSendEmail.setOnClickListener(v -> {
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
+                        intent.setData(Uri.parse("mailto:" + buyer.getEmail()));
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(this, "No Email app found!!!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                    buttonCall.setText("Call Buyer");
+                    buttonCall.setOnClickListener(v -> {
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse("tel:" + buyer.getPhoneNumber()));
+                        try {
+                            startActivity(intent);
+                        } catch (Exception e) {
+                            Toast.makeText(this, "No Dialer app found!!!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                if (BaseApplication.getApplicationInstance().getSessionUser().getUserType() == 0 && product.getBuyerId() == 0) {
                     buttonPlaceOrder.setVisibility(View.VISIBLE);
                     buttonPlaceOrder.setOnClickListener(v -> new AlertDialog.Builder(this)
                             .setTitle("Order Confirmation")
@@ -122,7 +164,8 @@ public class ProduceDetailsActivity extends AppCompatActivity {
                                 productViewModel.update(soldProduct);
                                 Toast.makeText(this, "Order confirmed\nYou can find it in Order History", Toast.LENGTH_SHORT).show();
                                 finish();
-                            }).setNegativeButton("No", (dialog, which) -> {})
+                            }).setNegativeButton("No", (dialog, which) -> {
+                            })
                             .show());
                 }
             } catch (Exception e) {

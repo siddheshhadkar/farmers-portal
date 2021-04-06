@@ -29,4 +29,10 @@ public interface ProductDao {
 
     @Query("SELECT * FROM Product WHERE buyerId=0")
     LiveData<List<Product>> getUnsoldProducts();
+
+    @Query("SELECT * FROM Product WHERE sellerId=:sellerId AND NOT buyerId=0")
+    LiveData<List<Product>> getSoldProducts(int sellerId);
+
+    @Query("SELECT * FROM Product WHERE buyerId=:buyerId")
+    LiveData<List<Product>> getBoughtProducts(int buyerId);
 }

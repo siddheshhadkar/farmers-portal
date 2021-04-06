@@ -43,4 +43,12 @@ public class ProductViewModel extends AndroidViewModel {
     public LiveData<List<Product>> getUnsoldProducts() {
         return repository.getUnsoldProducts();
     }
+
+    public LiveData<List<Product>> getSoldProducts(int sellerId) {
+        return repository.getSoldProducts(sellerId);
+    }
+
+    public LiveData<List<Product>> getBoughtProducts(int buyerId) {
+        return repository.getBoughtProducts(buyerId);
+    }
 }
