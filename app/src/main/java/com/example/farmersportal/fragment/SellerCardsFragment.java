@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.farmersportal.R;
 import com.example.farmersportal.activity.OrderHistoryActivity;
+import com.example.farmersportal.activity.UploadProduceActivity;
 import com.example.farmersportal.activity.ViewProduceActivity;
 import com.google.android.material.card.MaterialCardView;
 
@@ -26,7 +26,7 @@ public class SellerCardsFragment extends Fragment {
         MaterialCardView cardViewProduce = layout.findViewById(R.id.cardViewProduce);
         MaterialCardView cardHistory = layout.findViewById(R.id.cardHistory);
 
-        cardUploadProduce.setOnClickListener(v -> Toast.makeText(requireContext(), "Upload Produce", Toast.LENGTH_SHORT).show());
+        cardUploadProduce.setOnClickListener(v -> startActivity((new Intent(requireContext(), UploadProduceActivity.class))));
 
         cardViewProduce.setOnClickListener(v -> startActivity(new Intent(requireContext(), ViewProduceActivity.class)));
 

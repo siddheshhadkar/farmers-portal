@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FarmersPortal.NoActionBar">
-        <activity android:name=".activity.OrderHistoryActivity"></activity>
+        <activity android:name=".activity.UploadProduceActivity"></activity>
+        <activity android:name=".activity.OrderHistoryActivity" />
         <activity
             android:name=".activity.ProfileActivity"
             android:resizeableActivity="false" />
